@@ -1,0 +1,154 @@
+@-webkit-keyframes hoverFade {
+  0% {
+    background-color: #f1ece4;
+  }
+  25% {
+    background-color: #d1e0dd;
+  }
+  50% {
+    background-color: #035;
+  }
+  100% {
+    background-color: #6b616f;
+  }
+}
+@keyframes hoverFade {
+  0% {
+    background-color: #f1ece4;
+  }
+  25% {
+    background-color: #d1e0dd;
+  }
+  50% {
+    background-color: #035;
+  }
+  100% {
+    background-color: #6b616f;
+  }
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: linear-gradient(50deg, lightcoral, lightblue);
+  font-family: monospace;
+}
+
+::-webkit-scrollbar {
+  z-index: 999;
+  border-radius: 5px;
+  background-color: #eee;
+  margin-right: auto;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ddd;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+}
+
+.todo {
+  background-color: lightgray;
+  width: 60vw;
+  height: 66vh;
+  justify-content: center;
+  text-align: center;
+  align-content: center;
+  margin: 0 auto;
+  border-radius: 1em 0 0 1em;
+  position: absolute;
+  left: 19.999%;
+  top: 15%;
+  box-shadow: 1px 1px 8px 2px #111;
+  overflow-y: auto;
+}
+
+input {
+  border: none;
+  border-radius: 0.3em;
+  height: 2.5em;
+}
+
+.todo-form {
+  margin-top: 1em;
+}
+.todo-form .btn {
+  border: none;
+  background-color: #ddd;
+  height: 3em;
+  width: 5em;
+  border-radius: 0.3em;
+}
+.todo-form .btn:hover {
+  cursor: pointer;
+  border: 2px solid #6b616f;
+}
+
+.todo-item {
+  width: 80%;
+  display: inline-flex;
+  justify-content: flex-start;
+  text-align: left;
+  align-content: center;
+  align-items: center;
+  background-color: #f1ece4;
+  font-size: 24px;
+  margin: 0.25em;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  -webkit-margin-end: 4em;
+          margin-inline-end: 4em;
+  overflow: hidden;
+  overflow-x: auto;
+}
+.todo-item p {
+  margin-right: auto;
+}
+
+.control {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-group {
+  gap: 1em;
+  display: flex;
+  margin-left: auto;
+}
+
+.delete-btn,
+.edit-btn,
+.finish-btn {
+  cursor: pointer;
+  font-size: 30px;
+  text-decoration: none;
+  margin-left: auto;
+}
+
+.finish-btn {
+  margin-left: auto;
+  display: none;
+}
+
+ul {
+  text-decoration: none;
+  list-style: none;
+}
+
+.todo-complete {
+  background-color: lightgreen;
+}
+.todo-complete p {
+  text-decoration: line-through;
+}
+
+.edit-task-input {
+  border-radius: 1em;
+}/*# sourceMappingURL=style.css.map */
