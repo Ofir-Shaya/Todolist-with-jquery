@@ -71,7 +71,7 @@ function handleNewLi(element) {
   var html = `
         <li id="${element.key}" class="todo-item ${
     element.isComplete ? 'todo-complete' : ''
-  }">
+  }" >
             <input id="${
               element.key
             }itemCheckBox" type="checkbox" class="control" ${
@@ -92,11 +92,6 @@ function handleNewLi(element) {
 }
 
 function assignBtnFunctions() {
-  $('li').on('dragstart', dragStart);
-  $('li').on('dragenter', dragOverDelete);
-  $('li').on('dragend', dragEnd);
-  $('.delete-drop-zone').on('dragenter', dragOverDelete);
-
   $('.control').on('change', changeIsComplete);
   $('.edit-btn').on('click', handleStartEdit);
   $('.finish-btn').on('click', handleFinishEdit);
