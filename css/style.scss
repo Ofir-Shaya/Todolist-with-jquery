@@ -1,7 +1,9 @@
 $light-background: #f1ece4;
 $light-text: #035;
 $dark-background: #6b616f;
-$dark-text: #d1e0dd;
+$dark-text: #9cdbce;
+$delete-text: #ca443d;
+
 $widths: 100, 75, 80, 150;
 
 @keyframes hoverFade {
@@ -30,7 +32,7 @@ body {
 }
 
 ::-webkit-scrollbar {
-  z-index: 999;
+  z-index: 0;
   border-radius: 5px;
   background-color: #eee;
   margin-right: auto;
@@ -44,7 +46,7 @@ body {
 
 .todo {
   background-color: lightgray;
-  width: 60vw;
+  width: 57.7777vw;
   height: 66vh;
   justify-content: center;
   text-align: center;
@@ -80,6 +82,7 @@ input {
 }
 
 .todo-item {
+  z-index: 3;
   width: 80%;
   display: inline-flex;
   justify-content: flex-start;

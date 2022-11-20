@@ -1,5 +1,12 @@
 var currentInput = '';
 var myList = [];
+$.getJSON('allTasks.json', function (data) {
+  data = data['allTasks'];
+  $(data).each(function (key, val) {
+    myList.push(val);
+  });
+  firstRender();
+});
 // .match(/\d/g).join('');
 
 function ready() {
@@ -23,6 +30,15 @@ function ready() {
   });
 
   $('.addBtn').on('click', handleAdd);
+  firstRender();
+}
+
+function firstRender() {
+  $('.ul-tasks').html('');
+  myList.map(function (element) {
+    handleNewLi(element);
+  });
+  assignBtnFunctions();
 }
 
 function handleAdd() {
@@ -31,9 +47,9 @@ function handleAdd() {
   }
 
   myList.push({
-    key: $('.ul-tasks li').length,
+    key: String($('.ul-tasks li').length),
     text: currentInput,
-    isComplete: false,
+    isComplete: 0,
     createdAt: new Date(),
   });
 
@@ -42,6 +58,8 @@ function handleAdd() {
   myList.map(function (element) {
     handleNewLi(element);
   });
+
+  handlePHPAdd();
 
   $('.todo-input').focus();
   $('.todo-input')[0].value = '';
@@ -53,7 +71,7 @@ function handleNewLi(element) {
   var html = `
         <li id="${element.key}" class="todo-item ${
     element.isComplete ? 'todo-complete' : ''
-  }">
+  }" draggable="true">
             <input id="${
               element.key
             }itemCheckBox" type="checkbox" class="control" ${
@@ -74,6 +92,11 @@ function handleNewLi(element) {
 }
 
 function assignBtnFunctions() {
+  $('li').on('dragstart', dragStart);
+  $('li').on('dragenter', dragOverDelete);
+  $('li').on('dragend', dragEnd);
+  $('.delete-drop-zone').on('dragenter', dragOverDelete);
+
   $('.control').on('change', changeIsComplete);
   $('.edit-btn').on('click', handleStartEdit);
   $('.finish-btn').on('click', handleFinishEdit);
@@ -81,13 +104,15 @@ function assignBtnFunctions() {
 }
 
 function changeIsComplete(e, newIsComplete) {
-  var id = Number($(this)[0].id.match(/\d/g).join(''));
+  var id = $(this)[0].id.match(/\d/g).join('');
   var item = myList.find((element) => element.key === id);
-
   handleComplete($(this).parent('li'));
+
   item.isComplete =
     typeof newIsComplete === 'boolean' ? newIsComplete : !item.isComplete;
   myList[id] = item;
+
+  handlePHPUpdate(id, 'isComplete', item.isComplete);
 }
 
 function handleComplete(liElement) {
@@ -117,7 +142,6 @@ function handleFinishEdit(newThis, text) {
   }
 
   if (typeof text === 'string' && !text.trim().length < 2) {
-    console.log('a');
     var newText = text;
   } else if (
     !(fakeThis.parent().siblings('#editTxt')[0].value.trim().length < 2)
@@ -134,8 +158,11 @@ function handleFinishEdit(newThis, text) {
     .parent()
     .siblings('#editTxt')
     .replaceWith($(`<p>${newText}</p>`));
+
   fakeThis.toggle();
   fakeThis.siblings('a').toggle();
+
+  handlePHPUpdate(id, 'text', newText);
 }
 
 function handleDeleteItem() {
@@ -150,17 +177,58 @@ function handleDeleteItem() {
     return element.key !== id;
   });
 
-  $('.ul-tasks').html('');
+  handlePHPDelete(id);
   updateId();
-  myList.map(function (element) {
-    handleNewLi(element);
-  });
-  assignBtnFunctions();
 }
 
 function updateId() {
-  $(myList).each(function (i) {
-    this.key = i;
+  myList = [];
+  $.getJSON('allTasks.json', function (data) {
+    data = data['allTasks'];
+    $(data).each(function (key, val) {
+      myList.push(val);
+    });
+    firstRender();
+  });
+}
+
+function handlePHPAdd() {
+  var myTask = myList[myList.length - 1];
+
+  $.ajax({
+    url: 'handleTasks.php',
+    type: 'POST',
+    data: {
+      func: 'add',
+      task: { ...myTask },
+    },
+    success: function () {},
+  });
+}
+
+function handlePHPUpdate(id, property, value) {
+  $.ajax({
+    url: 'handleTasks.php',
+    type: 'POST',
+    data: {
+      func: 'update',
+      id: id,
+      property: property,
+      value: value,
+    },
+    success: function () {},
+  });
+}
+
+function handlePHPDelete(id) {
+  $.ajax({
+    url: 'handleTasks.php',
+    type: 'POST',
+    data: {
+      func: 'delete',
+      id: id,
+    },
+    success: function () {},
   });
 }
 
