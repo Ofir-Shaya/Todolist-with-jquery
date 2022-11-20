@@ -69,21 +69,21 @@ function handleAdd() {
 
 function handleNewLi(element) {
   var html = `
-        <li id="${element.key}" class="todo-item ${
+        <li id='${element.key}' class='todo-item ${
     element.isComplete ? 'todo-complete' : ''
-  }" >
-            <input id="${
+  }' >
+            <input id='${
               element.key
-            }itemCheckBox" type="checkbox" class="control" ${
+            }itemCheckBox' type='checkbox' class='control' ${
     element.isComplete ? 'checked' : ''
   }></input>
             <p>${element.text}</p>
-            <div class="btn-group">
-              <a id="${element.key}itemEdit" href="#" class="edit-btn">✏️</a>
-              <a id="${
+            <div class='btn-group'>
+              <a id='${element.key}itemEdit' href='#' class='edit-btn'>✏️</a>
+              <a id='${
                 element.key
-              }itemFinish" href="#" class="finish-btn">✅</a>
-              <a href="#" class="delete-btn">❌</a>
+              }itemFinish' href='#' class='finish-btn'>✅</a>
+              <a href='#' class='delete-btn'>❌</a>
             </div>
         </li>
     `;
@@ -126,13 +126,13 @@ function handleStartEdit(e) {
     .parent()
     .siblings('p:first')
     .replaceWith(
-      $(`<input id="editTxt" value=${editItem.text} class="edit-task-input">`)
+      $(`<input id='editTxt' value=${editItem.text} class='edit-task-input'>`)
     );
 }
 
 function handleFinishEdit(newThis, text) {
   let fakeThis = $(this);
-  if ($.isWindow($(this)[0])) {
+  if (!$(this).length || $.isWindow($(this)[0])) {
     fakeThis = newThis;
   }
 
