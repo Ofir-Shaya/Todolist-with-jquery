@@ -71,7 +71,7 @@ function handleNewLi(element) {
   var html = `
         <li id="${element.key}" class="todo-item ${
     element.isComplete ? 'todo-complete' : ''
-  }" draggable="true">
+  }">
             <input id="${
               element.key
             }itemCheckBox" type="checkbox" class="control" ${
