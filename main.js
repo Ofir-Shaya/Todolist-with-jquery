@@ -41,32 +41,6 @@ function firstRender() {
   assignBtnFunctions();
 }
 
-function handleAdd() {
-  if (currentInput.trim().length < 2) {
-    throw new Error('Must enter a valid input');
-  }
-
-  myList.push({
-    key: String($('.ul-tasks li').length),
-    text: currentInput,
-    isComplete: 0,
-    createdAt: new Date(),
-  });
-
-  $('.ul-tasks').html('');
-
-  myList.map(function (element) {
-    handleNewLi(element);
-  });
-
-  handlePHPAdd();
-
-  $('.todo-input').focus();
-  $('.todo-input')[0].value = '';
-  assignBtnFunctions();
-  currentInput = '';
-}
-
 function handleNewLi(element) {
   var html = `
         <li id='${element.key}' class='todo-item ${
@@ -96,6 +70,32 @@ function assignBtnFunctions() {
   $('.edit-btn').on('click', handleStartEdit);
   $('.finish-btn').on('click', handleFinishEdit);
   $('.delete-btn').on('click', handleDeleteItem);
+}
+
+function handleAdd() {
+  if (currentInput.trim().length < 2) {
+    throw new Error('Must enter a valid input');
+  }
+
+  myList.push({
+    key: String($('.ul-tasks li').length),
+    text: currentInput,
+    isComplete: 0,
+    createdAt: new Date(),
+  });
+
+  $('.ul-tasks').html('');
+
+  myList.map(function (element) {
+    handleNewLi(element);
+  });
+
+  handlePHPAdd();
+
+  $('.todo-input').focus();
+  $('.todo-input')[0].value = '';
+  assignBtnFunctions();
+  currentInput = '';
 }
 
 function changeIsComplete(e, newIsComplete) {
